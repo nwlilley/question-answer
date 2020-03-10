@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class='question-detail-box'>
+    <h2 class='question-detail-title'>{{ question.title }}</h2>
+    <p class='question-detail-body'>{{ question.body }}</p>
+    <p class='created-at'>{{ question.created_at }}</p>
+</div>
+
+{% endblock %}
