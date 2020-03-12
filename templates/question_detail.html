@@ -13,4 +13,10 @@
     <button class='button' id='answer-submit' type=submit>SPLAT</button>
 </form>
 
+{% for answer in answers %}
+<div class='answer-box'>
+    <h3>{{answer.body}}</h3>
+</div>
+{% endfor %}
+
 {% endblock %}

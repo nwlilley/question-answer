@@ -3,7 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.conf.urls.static import static
 from .models import Question, Answer
-from .forms import QuestionForm
+# from .forms import QuestionForm, AnswerForm
 from django.http import JsonResponse
 import json
 from django.views.decorators.csrf import csrf_exempt
@@ -19,7 +19,8 @@ def question_list(request):
 
 def question_detail(request, pk):
     question = get_object_or_404(Question, pk=pk)
-    return render(request, 'question_detail.html', { 'question':question, 'pk':pk })
+    answers = Answer.objects.all()
+    return render(request, 'question_detail.html', { 'question':question, 'pk':pk, 'answers': answers})
 
 def signup(request):
     if request.method == 'POST':
@@ -33,15 +34,6 @@ def signup(request):
 
 def user_profile(request):
     questions = Question.objects.filter(user=request.user)
-    # if request.method == "POST":
-    #     form = QuestionForm(request.POST)
-    #     question_pk = request.POST.get('question')
-    #     question = Question.objects.get(pk=question_pk)
-    #     form.save()
-        # value_entry = request.POST.get('value_entry')
-        # log = Log.objects.create(habit=habit, value_entry=value_entry)
-        
-    # form = QuestionForm()
     return render(request, 'questions.html', {'questions': questions})
 
 @csrf_exempt
@@ -59,6 +51,7 @@ def new_question(request):
         }
     })
 
+@csrf_exempt
 def add_answer(request):
     data = json.loads(request.body.decode("utf-8"))
     answer = data.get('answer')
