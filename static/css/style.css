@@ -7,8 +7,34 @@
 body {
     font-family: Helvetica, Arial, sans-serif;
 }
+
+input {
+    margin: 1rem 0;
+}
+
+.ask-question-box {
+    display: flex;
+    flex-direction: column;
+    color: white;
+    margin: 1rem;
+    padding: 1rem;
+    background-color: hotpink;
+    border-radius: 10px;
+}
+
+.add-question-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.text-field {
+    font-size: 1.5rem;
+}
 .header {
     background-color: hotpink;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
     width: 100%;
 }
 
@@ -19,12 +45,18 @@ body {
     padding: 3rem;
 }
 
-.site-title a {
+.login-links {
+    color: white;
+    padding: 1rem;
+}
+.site-title a,
+.login-links a {
     color: white;
     text-decoration: none;
 }
 
-.site-title a:hover {
+.site-title a:hover, 
+.login-links a:hover {
     color: rgb(240, 172, 234);
 }
 
@@ -45,9 +77,29 @@ body {
     color: rgb(158, 60, 150);
 }
 
+.question-detail-title {
+    color: hotpink;
+    font-size: 2rem;
+}
+
+.question-detail-body {
+    font-size: 1.5rem;
+}
 
 .created-at {
     color: #808080;
     font-size: .75rem;
     margin-top: .5rem;
 }
+
+.button {
+    background-color: rgb(53, 184, 236);
+    color: white;
+    font-size: 1rem;
+    width: fit-content;
+    padding: 1rem;
+    margin: .5rem;
+    border-radius: 10px;
+    /* font-stretch: ultra-expanded; */
+}
+

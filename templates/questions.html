@@ -1,6 +1,23 @@
 {% extends 'base.html' %}
+{% load static %}
+
+{% block meta %}
+<script src="{% static 'js/waddup.js' %}" defer></script>
+{% endblock %}
 
 {% block content %}
+<div class='ask-question-box'>
+    <h2>Ask a question</h2>
+    <form class='add-question-form' id='add-question'>
+        <label for='question-title'>Question Title</label>
+        <input class="text-field"type='text' id='question-title'>
+        <label for='question-body'>Question</label>
+        <textarea class='text-field' id='question-body' rows='4'></textarea>
+        <button class='button' id='question-submit' type=submit>SPLAT</button>
+    </form>
+    </div>
+    <!-- <button class='button' id='question-submit' type='submit'>ASK</button> -->
+</div>
 
 {% for question in questions %}
 <div class="question-box" id="{{question.pk}}">
@@ -9,6 +26,7 @@
     </h2>
     <p class="question-body">{{ question.body }}</p>
     <p class='created-at'>{{ question.created_at }}</p>
+    <p class='created_by'>Created by: {{ request.user.username }} </p>
 </div>
 
 {% endfor %}

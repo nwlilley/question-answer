@@ -1,3 +1,6 @@
 {
-    "python.pythonPath": "/Users/nathaniellilley/.local/share/virtualenvs/django-multiple-choice-nwlilley-BxenRrVL/bin/python"
+    "python.pythonPath": "/Users/nathaniellilley/.local/share/virtualenvs/django-multiple-choice-nwlilley-BxenRrVL/bin/python",
+    "python.linting.pylintEnabled": false,
+    "python.linting.prospectorEnabled": true,
+    "python.linting.enabled": true
 }

@@ -24,6 +24,13 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.question_list, name='question-list'), 
     path('questions/<int:pk>', views.question_detail, name='question-detail'),
+    path('accounts/', include('registration.backends.simple.urls')),
+    path('accounts/profile/', views.user_profile, name='user-profile'),
+    path('signup/', views.signup, name='signup'),
+    path('newquestion/', views.new_question, name='new-question'),
+    path('answer/', views.add_answer, name='add-answer')
+
+
 ]
 
 if settings.DEBUG:

@@ -5,16 +5,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Noblubby Cares!</title>
+    {% block title %}{% endblock %}
+    <title>Noblubby Knows</title>
     <link rel="stylesheet" type='text/css' href="{% static 'css/style.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Bungee+Shade&display=swap" rel="stylesheet">
+    {% block meta %}{% endblock %}
 </head>
 <body>
     <header class='header'>
         <h1 class='site-title'>
-            <a href="{% url 'question-list' %}">Pee Pee Poo Poo</a>
+            <a href="{% url 'question-list' %}">Question Plop</a>
         </h1>
+        <div class='login-links'>
+            {% if user.is_authenticated %}
+                <a class='logout' href="/accounts/logout">Logout</a>
+                
+            {% else %}
+                <a class='login' href='/accounts/login/'>Login</a>
+                |
+                <a class='register' href="/accounts/register/">Register</a>
+            {% endif %}
+        </div>
     </header>
+    
     {% block content %}
     {% endblock content %}
 </body>
