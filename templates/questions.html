@@ -19,16 +19,17 @@
     <!-- <button class='button' id='question-submit' type='submit'>ASK</button> -->
 </div>
 
-{% for question in questions %}
-<div class="question-box" id="{{question.pk}}">
-    <h2 class="question-title">
-        <a href="{% url 'question-detail' question.pk %}">{{ question.title }}</a>
-    </h2>
-    <p class="question-body">{{ question.body }}</p>
-    <p class='created-at'>{{ question.created_at }}</p>
-    <p class='created_by'>Created by: {{ request.user.username }} </p>
+<div id='question-container'>
+    {% for question in questions %}
+    <div class="question-box" id="{{question.pk}}">
+        <h2 class="question-title">
+            <a href="{% url 'question-detail' question.pk %}">{{ question.title }}</a>
+        </h2>
+        <p class="question-body">{{ question.body }}</p>
+        <p class='created-at'>{{ question.created_at }}</p>
+        <p class='created_by'>Created by: {{ request.user.username }} </p>
+    </div>
 </div>
-
 {% endfor %}
 
 {% endblock %}

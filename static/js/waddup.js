@@ -2,8 +2,14 @@ console.log('waddup')
 // assign form 
 let questionForm = document.querySelector('#add-question')
 
-function createAnswerHTML (answer) {
-    return `<li data-answer-id="${answer.id}"><h2>${answer.body}</h2></li>`
+function createQuestionHTML (data) {
+    return `<p>${data.title} ${data.body}</p>`
+}
+
+function showQuestion (data) {
+    const questionHTML = createQuestionHTML(data)
+    const questionContainer = document.querySelector("#question-container")
+    questionContainer.insertAdjacentHTML('beforeend', questionHTML)
 }
 
 function askQuestion() {
@@ -25,6 +31,7 @@ function askQuestion() {
             .then(res => res.json())
             .then(json => {
                 if (json.status === 'ok'){
+                    showQuestion(json.data)
                     console.log('GOOD JOB')
                 }
             })
