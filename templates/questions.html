@@ -27,7 +27,7 @@
         </h2>
         <p class="question-body">{{ question.body }}</p>
         <p class='created-at'>{{ question.created_at }}</p>
-        <p class='created_by'>Created by: {{ request.user.username }} </p>
+        <p class='created_by'>Created by: {{ question.user }} </p>
     </div>
 </div>
 {% endfor %}
