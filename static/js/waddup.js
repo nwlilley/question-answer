@@ -2,8 +2,13 @@ console.log('waddup')
 // assign form 
 let questionForm = document.querySelector('#add-question')
 
-function createQuestionHTML (data) {
-    return `<p>${data.title} ${data.body}</p>`
+function getQuestions() {
+    return fetch("http://127.0.0.1:8000/", { "method": "GET" })
+        .then(results => results.json())
+}
+
+function createQuestionHTML (question) {
+    return `<div class='question-box'><h2 class='question-title'><a href="questions/${question.pk}/">${question.title}</a></h2><p class='question-body'>${question.body}</p></div>`
 }
 
 function showQuestion (data) {
@@ -18,7 +23,7 @@ function askQuestion() {
         e.preventDefault()
         let questionTitle = document.querySelector("#question-title")
         let questionBody = document.querySelector("#question-body")
-        let data = {title: questionTitle.value, body: questionBody.value }
+        let data = {title: questionTitle.value, body: questionBody.value  }
         
         console.log('button connected')
         console.log(data)
