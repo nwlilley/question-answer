@@ -35,7 +35,7 @@ def question_list(request):
 
 def question_detail(request, pk):
     question = get_object_or_404(Question, pk=pk)
-    answers = Answer.objects.all()
+    answers = Answer.objects.filter(answer=question.pk)
     return render(request, 'question_detail.html', { 'question':question, 'pk':pk, 'answers': answers})
 
 def signup(request):
