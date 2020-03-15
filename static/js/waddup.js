@@ -3,7 +3,7 @@ console.log('waddup')
 let questionForm = document.querySelector('#add-question')
 
 function getQuestions() {
-    return fetch("http://127.0.0.1:8000/", { "method": "GET" })
+    return fetch("/", { "method": "GET" })
         .then(results => results.json())
 }
 
@@ -14,7 +14,7 @@ function createQuestionHTML (question) {
 function showQuestion (data) {
     const questionHTML = createQuestionHTML(data)
     const questionContainer = document.querySelector("#question-container")
-    questionContainer.insertAdjacentHTML('beforeend', questionHTML)
+    questionContainer.insertAdjacentHTML('afterbegin', questionHTML)
 }
 
 function askQuestion() {
@@ -72,9 +72,19 @@ function answerQuestion() {
     })
 }
 
+function getAllQuestions () {
+    return fetch('/', {
+      method: 'GET'
+    })
+      .then(response => response.json())
+  }
+  
+
 document.addEventListener('DOMContentLoaded', function() {
     askQuestion()
     answerQuestion()
+    getAllQuestions().then(showQuestion)
+
 })
 
 

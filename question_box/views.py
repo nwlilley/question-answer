@@ -14,8 +14,24 @@ from django.views.decorators.csrf import csrf_exempt
 # Create your views here.
 
 def question_list(request):
-    questions = Question.objects.all()
-    return render(request, 'questions.html', {'questions':questions})
+    questions = Question.objects.all().order_by('-created_at')
+    return render(request, 'questions.html',
+    # change context to something json objects
+    # template tag for json called {% to json %} or something
+    {'questions':questions})
+
+# def question_list(request):
+#     questions = Question.objects.all()
+
+#     return JsonResponse({
+#         "status": "ok",
+#         "data": {
+#             "pk": questions.pk,
+#             "title": questions.title,
+#             "body": questions.body,
+#         }
+#     }
+#     )
 
 def question_detail(request, pk):
     question = get_object_or_404(Question, pk=pk)
