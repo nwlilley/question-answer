@@ -15,9 +15,10 @@ class Question(models.Model):
         return f'{self.title}: {self.body}'
 
 class Answer(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE, null=True)
     answer = models.ForeignKey(to=Question, related_name='answers', on_delete=models.CASCADE, null=True)
     body = models.TextField(max_length=500)
     added_at = models.DateTimeField(auto_now=True)
     
     def __str__(self):
-        return f'{self.body}'
+        return f' Answer: {self.body}, User: {self.user}'

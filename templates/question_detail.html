@@ -7,15 +7,27 @@
     <p class='created-at'>{{ question.created_at }}</p>
     <p class='created_by'>Created by: {{ request.user.username }} </p>
 </div>
-<form class='add-answer-form' id='add-answer'>
+
+<div class='answer-form'>
+    <form  action="" method='POST'>
+      {% csrf_token %}
+      <table>
+        {{ form.as_table }}
+      </table>
+      <input type='submit' class="button" value='submit'>
+    </form>
+<!-- <form class='add-answer-form' id='add-answer'>
     <label for='question-body'>Answer</label>
     <textarea class='text-field' id='answer-body' rows='4'></textarea>
     <button class='button' id='answer-submit' type=submit>SPLAT</button>
-</form>
+</form> -->
+
 
 {% for answer in answers %}
 <div class='answer-box'>
-    <h3>{{answer.body}}</h3>
+    <p class='answer-user'>{{ request.user.username}} answered: </p>
+    <p class='answer-body'>{{answer.body}}</p>
+    <p class='created-at'>Answered: {{ answer.added_at }}</p>
 </div>
 {% endfor %}
 

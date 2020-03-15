@@ -61,7 +61,8 @@ input {
 }
 
 .question-box,
-.question-detail-box {
+.question-detail-box,
+.answer-box {
     margin: 1rem;
     padding: 1rem;
     border: 1px solid black;

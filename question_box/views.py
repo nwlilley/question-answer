@@ -2,8 +2,9 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.decorators import login_required
 from django.conf.urls.static import static
+from django.utils import timezone
 from .models import Question, Answer
-# from .forms import QuestionForm, AnswerForm
+from .forms import AnswerForm
 from django.http import JsonResponse
 import json
 from django.views.decorators.csrf import csrf_exempt
@@ -36,7 +37,18 @@ def question_list(request):
 def question_detail(request, pk):
     question = get_object_or_404(Question, pk=pk)
     answers = Answer.objects.filter(answer=question.pk)
-    return render(request, 'question_detail.html', { 'question':question, 'pk':pk, 'answers': answers})
+    if request.method == "POST":
+        form = AnswerForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.answer = question
+            post.user = request.user
+            post.added_at = timezone.now()
+            post.save()
+            return redirect('question-detail', pk=pk)
+    else: 
+        form = AnswerForm()
+    return render(request, 'question_detail.html', { 'question':question, 'pk':pk, 'answers': answers, 'form': form})
 
 def signup(request):
     if request.method == 'POST':
@@ -68,14 +80,28 @@ def new_question(request):
     })
 
 @csrf_exempt
-def add_answer(request):
-    data = json.loads(request.body.decode("utf-8"))
-    answer = data.get('answer')
-    new_answer = Answer.objects.create(answer=answer)
-    return JsonResponse({
-        "status": "ok",
-        "data": {
-            "pk": new_answer.pk,
-            "answer": new_answer.answer,
-        }
-    })
+def add_answer(request, pk):
+    answer = get_object_or_404(Answer, pk=pk)
+    if request.method == "POST":
+        form = AnswerForm(request.POST)
+        answer = request.POST.get('answer')
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = request.user
+            post.added_at = timezone.now()
+            post.save()
+            return redirect('question-detail', pk=pk)
+    else:
+        form = AnswerForm()
+    return render(request, 'question_detail.html', {'form':form},)
+
+    # data = json.loads(request.body.decode("utf-8"))
+    # answer = data.get('answer')
+    # new_answer = Answer.objects.create(answer=answer)
+    # return JsonResponse({
+    #     "status": "ok",
+    #     "data": {
+    #         "pk": new_answer.pk,
+    #         "answer": new_answer.answer,
+    #     }
+    # })
