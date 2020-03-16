@@ -19,13 +19,18 @@
 <!-- </div> -->
 {% if user.is_authenticated %}
     <div class='ask-question-box'>
-        <h2>{{ user }}'s question:</h2>
+        <h2 class='user-question-heading'>{{ user }}'s question:</h2>
         <div class='question-form'>
             <form  action="" method='POST'>
             {% csrf_token %}
-                <table class='question-field'>
+            {% for field in form %}
+            <div class="form-group">
+                {{ field.label_tag }} {{ field }}
+            </div>
+            {% endfor %}
+                <!-- <table class='question-field'>
                     {{ form.as_table }}
-                </table>
+                </table> -->
                 <input type='submit' class="button" value='submit'>
             </form>
         </div>
@@ -43,8 +48,8 @@
             <a href="{% url 'question-detail' question.pk %}">{{ question.title }}</a>
         </h2>
         <p class="question-body">{{ question.body }}</p>
+        <p class='created-by'>Created by: {{ question.user }} </p>
         <p class='created-at'>{{ question.created_at }}</p>
-        <p class='created_by'>Created by: {{ question.user }} </p>
     </div>
 </div>
 {% endfor %}

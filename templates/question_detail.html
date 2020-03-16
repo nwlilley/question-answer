@@ -7,14 +7,14 @@
     <p class='created-at'>{{ question.created_at }}</p>
     <p class='created_by'>Created by: {{ question.user }} </p>
 </div>
-<h3 class='answer-prompt'>Plop an answer, {{user}}:</h3>
 <div class='answer-form'>
+    <h3 class='answer-prompt'>Plop an answer, {{user}}:</h3>
     <form  action="" method='POST'>
       {% csrf_token %}
       <table class='answer-field'>
         {{ form.as_table }}
       </table>
-      <input type='submit' class="button" value='submit'>
+      <input type='submit' class="button" value='Plop'>
     </form>
 </div>
 

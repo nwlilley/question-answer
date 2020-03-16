@@ -28,7 +28,7 @@ input {
 }
 
 .answer-prompt {
-    margin-left: 1rem;
+    
 }
 .text-field {
     font-size: 1.5rem;
@@ -95,6 +95,9 @@ input {
     font-size: 1.5rem;
 }
 
+.created-by {
+    margin-top: 1rem;
+}
 .created-at {
     color: #808080;
     font-size: .75rem;
@@ -123,4 +126,19 @@ input {
 }
 
 .answer-field {
+}
+
+.form-title {
+    width: 100%;
+    font-size: 1.5rem;
+}
+
+.form-body {
+    width: 100%;
+    font-size: 1.5rem;
+    height: 7rem;
+}
+
+.user-question-heading {
+    margin-bottom: 1rem;
 }
