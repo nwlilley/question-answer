@@ -6,7 +6,9 @@ class QuestionForm(forms.ModelForm):
 
     class Meta:
         model = Question
-        fields = ('title', 'body',)
+        fields = ('title','body',)
+
+
 
 class AnswerForm(forms.ModelForm):
     body = forms.CharField(widget=forms.Textarea, label='',)
