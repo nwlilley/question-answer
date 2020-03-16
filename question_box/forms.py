@@ -9,7 +9,8 @@ class QuestionForm(forms.ModelForm):
         fields = ('title', 'body',)
 
 class AnswerForm(forms.ModelForm):
+    body = forms.CharField(widget=forms.Textarea, label='',)
 
     class Meta:
         model = Answer
-        fields = ('user', 'body',)
+        fields = ('body',)

@@ -18,6 +18,7 @@
         </h1>
         <div class='login-links'>
             {% if user.is_authenticated %}
+                Logged in as {{ user }} |
                 <a class='logout' href="/accounts/logout">Logout</a>
                 
             {% else %}

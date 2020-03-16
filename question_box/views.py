@@ -8,6 +8,7 @@ from .forms import AnswerForm
 from django.http import JsonResponse
 import json
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 
 
 
@@ -34,9 +35,10 @@ def question_list(request):
 #     }
 #     )
 
+@login_required
 def question_detail(request, pk):
     question = get_object_or_404(Question, pk=pk)
-    answers = Answer.objects.filter(answer=question.pk)
+    answers = Answer.objects.filter(answer=question.pk).order_by('-added_at')
     if request.method == "POST":
         form = AnswerForm(request.POST)
         if form.is_valid():
@@ -50,19 +52,24 @@ def question_detail(request, pk):
         form = AnswerForm()
     return render(request, 'question_detail.html', { 'question':question, 'pk':pk, 'answers': answers, 'form': form})
 
-def signup(request):
-    if request.method == 'POST':
-        form = UserCreationForm(request.POST)
-        if form.is_valid():
-            form.save()
-            return redirect('questions.html')
-    else:
-        form = UserCreationForm()
-    return render(request, 'registration.html', {'form': form})
+# def signup(request):
+#     if request.method == 'POST':
+#         form = UserCreationForm(request.POST)
+#         if form.is_valid():
+#             form.save()
+#             return redirect('questions.html')
+#     else:
+#         form = UserCreationForm()
+#     return render(request, 'registration.html', {'form': form})
 
 def user_profile(request):
-    questions = Question.objects.filter(user=request.user)
+    # questions = Question.objects.filter(user=request.user)
+    questions = Question.objects.all().order_by('-created_at')
     return render(request, 'questions.html', {'questions': questions})
+
+def user_questions(request):
+    questions = Question.objects.filter(user=request.user)
+    return render(request, 'user_questions.html', {'questions': questions})
 
 @csrf_exempt
 def new_question(request):

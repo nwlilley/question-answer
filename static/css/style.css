@@ -104,3 +104,10 @@ input {
     /* font-stretch: ultra-expanded; */
 }
 
+.answer-form {
+    margin: 1rem;
+}
+
+.answer-field {
+    width: 500px;
+}

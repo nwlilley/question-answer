@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class='question-nav'>
+    <p>Your Questions</p>
+    |
+    <a href='#'>All Questions</a>
+</div>
+
+<div id='question-container'>
+    {% for question in questions %}
+    <div class="question-box" id="{{question.pk}}">
+        <h2 class="question-title">
+            <a href="{% url 'question-detail' question.pk %}">{{ question.title }}</a>
+        </h2>
+        <p class="question-body">{{ question.body }}</p>
+        <p class='created-at'>{{ question.created_at }}</p>
+        <p class='created_by'>Created by: {{ question.user }} </p>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}

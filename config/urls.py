@@ -26,7 +26,8 @@ urlpatterns = [
     path('questions/<int:pk>', views.question_detail, name='question-detail'),
     path('accounts/', include('registration.backends.simple.urls')),
     path('accounts/profile/', views.user_profile, name='user-profile'),
-    path('signup/', views.signup, name='signup'),
+    path('accounts/profile/questions/', views.user_questions, name='user-questions'),
+    # path('signup/', views.signup, name='signup'),
     path('newquestion/', views.new_question, name='new-question'),
     # path('question/<int:pk>/answer/', views.add_answer, name='add-answer')
 
