@@ -6,7 +6,7 @@
 {% endblock %}
 
 {% block content %}
-<div class='ask-question-box'>
+<!-- <div class='ask-question-box'>
     <h2>Ask a question</h2>
     <form class='add-question-form' id='add-question'>
         <label for='question-title'>Question Title</label>
@@ -15,9 +15,26 @@
         <textarea class='text-field' id='question-body' rows='4' required></textarea>
         <button class='button' id='question-submit' type=submit>SPLAT</button>
     </form>
+    </div> -->
+<!-- </div> -->
+{% if user.is_authenticated %}
+    <div class='ask-question-box'>
+        <h2>{{ user }}'s question:</h2>
+        <div class='question-form'>
+            <form  action="" method='POST'>
+            {% csrf_token %}
+                <table class='question-field'>
+                    {{ form.as_table }}
+                </table>
+                <input type='submit' class="button" value='submit'>
+            </form>
+        </div>
     </div>
-   
-</div>
+{% else %}
+    <div class='ask-question-box'>
+        <h3>Welcome to Question Plopper, home of the Plopped Question. If you are a member, please <a href='/accounts/login/'>Plop In</a>. If you would like to join, <a href="/accounts/register/">Plop Plop Plop Plop</a></h3>
+    </div>
+{% endif %}
 
 <div id='question-container'>
     {% for question in questions %}

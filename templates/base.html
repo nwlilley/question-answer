@@ -14,11 +14,14 @@
 <body>
     <header class='header'>
         <h1 class='site-title'>
-            <a href="{% url 'question-list' %}">Question Plop</a>
+            {% if user.is_authenticated %}
+            <a href="{% url 'user-profile' %}">Question Plopper</a>
+            {% else %}
+            <a href="{% url 'question-list' %}">Question Plopper</a>
+            {% endif %}
         </h1>
         <div class='login-links'>
             {% if user.is_authenticated %}
-                Logged in as {{ user }} |
                 <a class='logout' href="/accounts/logout">Logout</a>
                 
             {% else %}

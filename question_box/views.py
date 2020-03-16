@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import login_required
 from django.conf.urls.static import static
 from django.utils import timezone
 from .models import Question, Answer
-from .forms import AnswerForm
+from .forms import QuestionForm, AnswerForm
 from django.http import JsonResponse
 import json
 from django.views.decorators.csrf import csrf_exempt
@@ -14,13 +14,19 @@ from django.contrib.auth.decorators import login_required
 
 
 # Create your views here.
-
 def question_list(request):
     questions = Question.objects.all().order_by('-created_at')
-    return render(request, 'questions.html',
-    # change context to something json objects
-    # template tag for json called {% to json %} or something
-    {'questions':questions})
+    if request.method == "POST":
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = request.user
+            post.created_at = timezone.now()
+            post.save()
+            return redirect('user-profile')
+    else: 
+        form = QuestionForm()
+    return render(request, 'questions.html', {'questions': questions, 'form':form})
 
 # def question_list(request):
 #     questions = Question.objects.all()
@@ -65,13 +71,24 @@ def question_detail(request, pk):
 def user_profile(request):
     # questions = Question.objects.filter(user=request.user)
     questions = Question.objects.all().order_by('-created_at')
-    return render(request, 'questions.html', {'questions': questions})
+    if request.method == "POST":
+        form = QuestionForm(request.POST)
+        if form.is_valid():
+            post = form.save(commit=False)
+            post.user = request.user
+            post.created_at = timezone.now()
+            post.save()
+            return redirect('user-profile')
+    else: 
+        form = QuestionForm()
+    return render(request, 'questions.html', {'questions': questions, 'form':form})
 
 def user_questions(request):
     questions = Question.objects.filter(user=request.user)
     return render(request, 'user_questions.html', {'questions': questions})
 
 @csrf_exempt
+@login_required
 def new_question(request):
     data = json.loads(request.body.decode("utf-8"))
     question_title = data.get('title')
@@ -87,6 +104,7 @@ def new_question(request):
     })
 
 @csrf_exempt
+@login_required
 def add_answer(request, pk):
     answer = get_object_or_404(Answer, pk=pk)
     if request.method == "POST":
