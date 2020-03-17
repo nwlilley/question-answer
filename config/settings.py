@@ -156,6 +156,6 @@ INTERNAL_IPS = [
 import django_heroku
 django_heroku.settings(locals())
 
-del DATABASES['default']['OPTIONS']['sslmode']
+# del DATABASES['default']['OPTIONS']['sslmode']
 
 
