@@ -8,13 +8,13 @@
     <p class='created_by'>Created by: {{ question.user }} </p>
 </div>
 <div class='answer-form'>
-    <h3 class='answer-prompt'>Plop an answer, {{user}}:</h3>
+    <h3 class='answer-prompt'>Unleash your judgment, {{user}}:</h3>
     <form  action="" method='POST'>
       {% csrf_token %}
       <table class='answer-field'>
         {{ form.as_table }}
       </table>
-      <input type='submit' class="button" value='Plop'>
+      <input type='submit' class="button" value='JUDGE'>
     </form>
 </div>
 
@@ -22,9 +22,9 @@
 
 {% for answer in answers %}
 <div class='answer-box'>
-    <p class='answer-user'>{{ answer.user }} answered: </p>
+    <p class='answer-user'>{{ answer.user }} replied: </p>
     <p class='answer-body'>{{answer.body}}</p>
-    <p class='created-at'>Answered: {{ answer.added_at }}</p>
+    <p class='created-at'>Judged: {{ answer.added_at }}</p>
 </div>
 {% endfor %}
 
